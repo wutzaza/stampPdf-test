@@ -1,0 +1,217 @@
+package com.example;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.io.File;
+import java.util.HashMap;
+import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.*;
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import java.util.logging.*;
+
+import com.aspose.pdf.*;
+import com.aspose.pdf.Document;
+import com.aspose.pdf.License;
+import com.aspose.pdf.Page;
+
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.aspose.pdf.*;
+import com.aspose.pdf.Image;
+import com.aspose.pdf.Rectangle;
+import com.aspose.pdf.facades.PdfFileSignature;
+
+/**
+ * Hello world!
+ *
+ */
+public class App {
+    public static void main(String[] args) {
+
+        // Debug
+        // Initialize License Instance
+        License license = new com.aspose.pdf.License();
+        try {
+            license.setLicense("C:/temp/stamp/Aspose.Pdf.lic");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // Check if license has been validated
+        // if (com.aspose.pdf.Document.isLicensed()) {
+        // System.out.println("License is Set!");
+        // }
+
+        // Path to Directory
+        // String myDir = "PathToDir";
+        // create PdfFileSignature object and bind input PDF files
+        // PdfFileSignature pdfSign = new PdfFileSignature();
+        // pdfSign.bindPdf("C:\\temp\\stamp\\checkout\\catia_2020_R3-edit-1-10-63.pdf");
+        // create a rectangle for signature location
+        // java.awt.Rectangle rect = new java.awt.Rectangle(100, 100, 200, 100);
+        // set signature appearance
+        // pdfSign.setSignatureAppearance("C:\\temp\\stamp\\1.png");
+        // create any of the three signature types
+        // PKCS1 signature = new PKCS1("C:\\temp\\stamp\\Wuttichai.pfx", "Passw0rd");
+        // PKCS7 signature = new PKCS7(myDir + "temp.pfx", "password"); // PKCS#7 or
+        // PKCS7Detached signature = new PKCS7Detached("temp.pfx", "password"); //
+        // PKCS#7 detached
+        // pdfSign.sign(1, "Signature Reason", "Contact", "Location", true, rect,
+        // signature);
+        // save output PDF file
+        // pdfSign.save("C:\\temp\\stamp\\checkin\\output.pdf");
+
+        // System.out.println("Hello World!");
+        // License license = new com.aspose.pdf.License();
+        // license.setLicense("C:/temp/stamp/Aspose.Pdf.lic");
+        // String sSignPath = "C:\\temp\\stamp\\";
+        // String sPictureName = "Pitchsiri.png";
+        String sCheckOutPath = "C:\\temp\\stamp\\checkout\\Test_Report_Template.pdf";
+        String sCheckInPath = "C:\\temp\\stamp\\checkin\\output.pdf";
+        String sPictureName = "C:\\temp\\stamp\\Pitchsiri.png";
+        String tag = "Eng1";
+
+        try {
+            replaceTags(sCheckOutPath, sCheckInPath, tag, sPictureName);
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // static void replaceTags(String inPdf, String outPdf, String tag, String
+        // imageName)
+        // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        // Date date = new Date();
+        // System.out.println(dateFormat.format(date));
+        // String pathIn = "C:\\temp\\stamp\\checkin";
+        // // String pathOut = "C:\\temp\\stamp\\checkout";
+        // deleteFile(pathIn);
+        // // deleteFile(pathOut);
+        // try {
+        // addPicToPDF(sCheckOutPath, sCheckInPath, sSignPath, sPictureName, 480, 665);
+        // } catch (Exception e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+    }
+
+    // private static void deleteFile(String dir) {
+    // String files;
+    // File file = new File(dir);
+    // System.out.println("Path file " + file);
+    // File[] listOfFiles = file.listFiles();
+    // for (int i = 0; i < listOfFiles.length; i++) {
+    // if (listOfFiles[i].isFile()) {
+    // files = listOfFiles[i].getName();
+    // System.out.println(files);
+    // if (!files.equalsIgnoreCase("Scan.pdf")) {
+    // boolean issuccess = new File(listOfFiles[i].toString()).delete();
+    // System.err.println("Deletion Success " + issuccess);
+    // }
+    // }
+    // }
+    // }
+
+    // public static void addPicToPDF(String sCheckOutPath, String sCheckInPath,
+    // String sSignPath, String sPictureName,
+    // int xOrdinate, int yOrdinate) throws Exception {
+    // // Gen Date Time
+    // DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    // Date date = new Date();
+    // // System.out.println(dateFormat.format(date));
+
+    // File directory = new File(sCheckOutPath);
+    // File[] fList = directory.listFiles();
+    // Document pdfDocument = new Document(sCheckOutPath + "//" +
+    // fList[0].getName());
+    // ImageStamp imageStamp = new ImageStamp(sSignPath + sPictureName);
+    // imageStamp.setBackground(false);
+    // imageStamp.setXIndent(xOrdinate);
+    // imageStamp.setYIndent(yOrdinate);
+    // pdfDocument.getPages().get_Item(1).addStamp(imageStamp);
+
+    // Page pdfPage = pdfDocument.getPages().get_Item(1);
+    // // create text fragment
+    // TextFragment textFragment = new TextFragment(dateFormat.format(date));
+    // textFragment.setPosition(new Position(480, 490));
+
+    // // set text properties
+    // textFragment.getTextState().setFont(FontRepository.findFont("Verdana"));
+    // textFragment.getTextState().setFontSize(10);
+    // textFragment.getTextState().setForegroundColor(Color.getBlue());
+
+    // // create TextBuilder object
+    // TextBuilder textBuilder = new TextBuilder(pdfPage);
+    // // append the text fragment to the PDF page
+    // textBuilder.appendText(textFragment);
+
+    // pdfDocument.save(sCheckInPath + fList[0].getName());
+
+    // }
+    private static void replaceTags(String inPdf, String outPdf, String tag, String imageName)
+            throws FileNotFoundException, IOException {
+        try {
+            // Open document
+            Document pdfDocument = new Document(inPdf);
+
+            for (Page page : pdfDocument.getPages()) {
+
+                java.io.FileInputStream imageStream = new java.io.FileInputStream(new java.io.File(imageName));
+
+                // Add an image to the Images collection of the page resources
+                page.getResources().getImages().add(imageStream);
+                // Using the GSave operator: this operator saves current graphics state
+                page.getContents().add(new Operator.GSave());
+
+                // Create TextAbsorber object to find all instances of the input search phrase
+                TextFragmentAbsorber textFragmentAbsorber = new TextFragmentAbsorber(tag);
+                page.accept(textFragmentAbsorber);
+                // Get the extracted text fragments into collection
+                TextFragmentCollection textFragmentCollection = textFragmentAbsorber.getTextFragments();
+                // Loop through the fragments
+                for (TextFragment textFragment : textFragmentCollection) {
+
+                    Rectangle rectangle = textFragment.getRectangle();
+
+                    System.out.println(rectangle);
+
+                    XImage ximage = page.getResources().getImages().get_Item(page.getResources().getImages().size());
+
+                    Matrix matrix = new Matrix(new double[] { 38, 0, 0, 18, 500, 675 });
+
+                    page.getContents().add(new Operator.ConcatenateMatrix(matrix));
+
+                    // Using Do operator: this operator draws image
+                    page.getContents().add(new Operator.Do(ximage.getName()));
+                    // Using GRestore operator: this operator restores graphics state
+                    page.getContents().add(new Operator.GRestore());
+
+                    // Remove textFragment
+                    textFragment.setText("");
+                }
+                imageStream.close();
+
+            }
+            // Save the updated PDF file
+            pdfDocument.save(outPdf);
+        } catch (Exception e) {
+            System.out.println("Exception addimage" + e.toString());
+        }
+    }
+
+}
